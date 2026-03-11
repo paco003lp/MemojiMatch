@@ -18,7 +18,7 @@ Nakon vaše prijave bit će vam dodijeljen mentor s kojim ćete tijekom semestra
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
 ------------  | ------------------- | ----- | ---------------------
-Ime i prezime | mojaadresa@foi.hr | 000000000 | githubuser
+Ime i prezime | mmaljak22@foi.hr | 0016161603 | Makibrzina
 Ime i prezime | pcrncic22@foi.hr  | 00161616500 | pcrncic22
 Bruno Nađ | bnad22@student.foi.hr | 0016158632 | B-nad
 

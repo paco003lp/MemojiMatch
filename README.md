@@ -15,9 +15,15 @@ Igra MemojiMatch zamišljena je kao memorijska igra gdje igrač mora pronači dv
 
 Oznaka | Naziv | Kratki opis 
 ------ | ----- | ----------- 
-F01 | Početni zaslon | Prije početka igre potrebno je napraviti početni zaslon sa nekoliko mogućnosti. Potrebno je napraviti mogućnost promjene postavki i mogućnost početka igre.
-F02 | Postavke | U postavkama potrebno je omogućiti utišavanje glazbe, utišavanje zvučnih efekata i odabir težine igre.
-F03 | Početak igre | U trenutku kada igrač započne igru potrebno je postaviti kartice s emojima okrenute naopačke. Kartice se moraju okrenuti kada se dodirnu te se mora pokrenuti zvučni efekt koji korisniku daje zvučni feedbck.
+F01 | Upravljanje profilima | Unos korisničkog imena i odabir avatara. Podaci se spremaju u Room bazu.
+F02 | Glavni izbornik | Navigacija (Fragments/Navigation Component) između igre, profila i ljestvice.
+F03 | Postavke sustava | Uključivanje/isključivanje zvuka i vibracije (korištenje SharedPreferences).
+F04 | Logika uparivanja | Glavni engine igre: miješanje kartica, provjera parova i Handler za okretanje kartica.
+F05 | Bodovni sustav | Izračun bodova na temelju preostalog vremena i broja pokušaja (kazneni bodovi).
+F06 | Razine težine | Dinamičko generiranje mreže (4x4, 4x6, 6x6) ovisno o odabiru igrača.
+F07 | Leaderboard | Dohvaćanje i prikaz Top 10 rezultata iz Room baze podataka u RecyclerView.
+F08 | Povijest igara | Poseban ekran koji prikazuje zadnjih 5 odigranih partija korisnika (iz Room baze).
+F09 | Multimedija i feedback | Implementacija zvučnih efekata (SoundPool) i animacija pri uspješnom spajanju parova.
 
 ## Tehnologije i oprema
 Tenologije, oprema i alati koje ćemo koristiti su: GitHub, GitHub Desktop, GitHub Wiki, GitHub projects, Jira, Figma, android studio, kotlin. Razvijati ćemo softver agilnim pristupom koristeči SCRUM okriv.

@@ -4,8 +4,8 @@
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
 ------------  | ------------------- | ----- | ---------------------
-Matija Maljak | mmaljak22@foi.hr | 0016161603 | Makibrzina
-Patrik Crnčić | pcrncic22@foi.hr  | 00161616500 | pcrncic22
+Matija Maljak | mmaljak22@student.foi.hr | 0016161603 | Makibrzina
+Patrik Crnčić | pcrncic22@student.foi.hr  | 00161616500 | pcrncic22
 Bruno Nađ | bnad22@student.foi.hr | 0016158632 | B-nad
 
 ## Opis domene

@@ -28,4 +28,4 @@ F09 | Multimedija i feedback | Implementacija zvučnih efekata (SoundPool) i ani
 ## Tehnologije i oprema
 Tenologije, oprema i alati koje ćemo koristiti su: GitHub, GitHub Desktop, GitHub Wiki, GitHub projects, Jira, Figma, android studio, kotlin. Razvijati ćemo softver agilnim pristupom koristeči SCRUM okriv.
 
-## Više o dizajnu i razvoju možete pročitati na [Wiki stranici](https://github.com/foivz/rmai26-brzina-i-instruktori/wiki/Opis-i-dizajn)
+## Više o dizajnu i razvoju možete pročitati na [Wiki stranici](https://github.com/foivz/rmai26-brzina-i-instruktori/wiki/Po%C4%8Detna-stranica)

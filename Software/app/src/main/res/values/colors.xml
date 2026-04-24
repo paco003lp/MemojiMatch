@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="bg_deep">#150D38</color>
+    <color name="bg_main">#1E1250</color>
+    <color name="accent_purple">#7C6FD4</color>
+    <color name="accent_muted">#6B5FA8</color>
+    <color name="accent_light">#E2DEFF</color>
+    <color name="green">#1D9E75</color>
+    <color name="penalty_red">#FF6B6B</color>
+    <color name="penalty_bg">#3D1A1A</color>
+    <color name="white">#FFFFFF</color>
 </resources>

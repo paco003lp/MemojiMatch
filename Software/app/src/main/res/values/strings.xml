@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">MemojiMatch</string>
+
+    <string name="title_profile">PROFIL</string>
+    <string name="hint_username">Ana</string>
+    <string name="label_select_level">ODABERI RAZINU</string>
+    <string name="level_medium">MEDIUM</string>
+    <string name="level_medium_desc">6x6 • 36 kartica • 90s</string>
+    <string name="btn_save_profile">SPREMI</string>
+
+    <string name="label_timer">VRIJEME</string>
+    <string name="label_score">SCORE</string>
+    <string name="val_timer_placeholder">0:42</string>
+    <string name="val_score_placeholder">0</string>
+    <string name="info_pairs">1/8 parova</string>
+    <string name="info_penalty">-100 kazna</string>
+    <string name="btn_start_game">POKRENI IGRU</string>
+
+    <string name="title_leaderboard">Ljestvica</string>
+    <string name="label_top_results">TOP 10 REZULTATA</string>
+    <string name="label_history">POVIJEST IGARA</string>
+
+    <string name="msg_win">Pobijedio si!</string>
+    <string name="label_total_score">UKUPNI BODOVI</string>
+    <string name="btn_new_game">NOVA IGRA</string>
+    <string name="btn_menu">IZBORNIK</string>
+
+    <string name="level_easy">EASY</string>
+    <string name="level_hard">HARD</string>
+    <string name="btn_play">IGRAJ</string>
 </resources>

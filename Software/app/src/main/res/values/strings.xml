@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MemojiMatch</string>
 
-    <string name="title_profile">PROFIL</string>
+    <string name="title_profile">Profil</string>
     <string name="hint_username">Ana</string>
     <string name="label_select_level">ODABERI RAZINU</string>
     <string name="level_medium">MEDIUM</string>
@@ -22,7 +22,7 @@
 
     <string name="msg_win">Pobijedio si!</string>
     <string name="label_total_score">UKUPNI BODOVI</string>
-    <string name="btn_new_game">NOVA IGRA</string>
+    <string name="btn_new_game">Nova igra</string>
     <string name="btn_menu">IZBORNIK</string>
 
     <string name="level_easy">EASY</string>

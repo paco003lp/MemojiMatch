@@ -3,13 +3,13 @@
     <item
         android:id="@+id/gameFragment"
         android:icon="@android:drawable/ic_menu_compass"
-        android:title="Igra"/>
+        android:title="@string/btn_new_game"/>
     <item
         android:id="@+id/leaderboardFragment"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="Ljestvica"/>
+        android:title="@string/title_leaderboard"/>
     <item
         android:id="@+id/profileFragment"
         android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="Profil"/>
+        android:title="@string/title_profile"/>
 </menu>

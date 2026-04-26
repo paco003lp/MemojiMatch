@@ -8,19 +8,19 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.memojimatch.fragments.ProfileFragment"
-        android:label="Profil"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.memojimatch.fragments.GameFragment"
-        android:label="Igra"
+        android:label="@string/btn_new_game"
         tools:layout="@layout/fragment_game"/>
 
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.example.memojimatch.fragments.LeaderboardFragment"
-        android:label="Ljestvica"
+        android:label="@string/title_leaderboard"
         tools:layout="@layout/fragment_leaderboard"/>
 
 </navigation>

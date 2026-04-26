@@ -23,4 +23,22 @@
         android:label="@string/title_leaderboard"
         tools:layout="@layout/fragment_leaderboard"/>
 
+    <fragment
+        android:id="@+id/levelSelectFragment"
+        android:name="com.example.memojimatch.fragments.LevelSelectFragment"
+        android:label="@string/select_level"
+        tools:layout="@layout/fragment_level_select" />
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.memojimatch.fragments.ResultFragment"
+        android:label="@string/msg_win"
+        tools:layout="@layout/fragment_result" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.memojimatch.fragments.HistoryFragment"
+        android:label="@string/label_history_title"
+        tools:layout="@layout/fragment_history" />
+
 </navigation>

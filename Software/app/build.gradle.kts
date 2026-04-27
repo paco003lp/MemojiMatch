@@ -1,5 +1,8 @@
+import org.gradle.kotlin.dsl.annotationProcessor
+
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -36,6 +39,8 @@ android {
 }
 
 dependencies {
+    val room_version = "2.7.1"
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -44,6 +49,9 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.8")
     implementation("androidx.navigation:navigation-ui-ktx:2.9.8")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor ("androidx.room:room-compiler:$room_version")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

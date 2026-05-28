@@ -1,5 +1,4 @@
 # MemojiMatch
-
 ## Projektni tim
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime

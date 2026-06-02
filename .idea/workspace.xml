@@ -50,6 +50,11 @@
           <theme>@style/Theme.MemojiMatch</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/navigation/nav_graph.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
     </layouts>
   </component>
   <component name="AutoImportSettings">
@@ -57,24 +62,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38aa751b-2fe3-4d2b-b078-7c4f0b7f841c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/AvatarAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/ProfileViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/data/ProfileRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/MainFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_avatar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_button.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_circle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_input.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/item_avatar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/ProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/ProfileFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/navigation/main_nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/navigation/main_nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/GameFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LeaderboardFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LevelSelectFragment.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +78,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[LocalEmulator::path=C:\Users\Matija\.android\avd\Pixel_8_Pro.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[LocalEmulator::path=C:\Users\Maki\.android\avd\Pixel_8_Pro.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Software">
       <ProjectState />
@@ -114,6 +107,7 @@
         <option value="resourceFile" />
         <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
+        <option value="navigationResourceFile" />
       </list>
     </option>
   </component>
@@ -131,19 +125,22 @@
     &quot;assignee&quot;: &quot;pcrncic22&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/foivz/rmai26-brzina-i-instruktori.git&quot;,
-    &quot;accountId&quot;: &quot;2027785d-98aa-4ce1-840a-82ea9b84f5eb&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/foivz/rmai26-brzina-i-instruktori.git",
+    "accountId": "683f2c26-d094-43ac-9aef-61b76af854b8"
   }
-}</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Software" gradleHome="C:\Users\Matija\.gradle\wrapper\dists\gradle-9.4.1-bin\arn2x92ynaizyzdaamcbpbhtj\gradle-9.4.1" javaHome="C:\Program Files\Android\Android Studio\jbr" gradleVersion="9.4.1">
+}]]></component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Software" gradleHome="C:\Users\Maki\.gradle\wrapper\dists\gradle-9.4.1-bin\arn2x92ynaizyzdaamcbpbhtj\gradle-9.4.1" javaHome="H:\androidstudio\jbr" gradleVersion="9.4.1">
     <option name="jvmArguments">
       <list>
         <option value="-Didea.compose.hot-reload=true" />
         <option value="-Didea.compose.hot-reload.version=2" />
       </list>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -156,6 +153,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Android App.app.executor": "Run",
+    "Gradle.C:/Users/Maki/Maki2 [sync].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -166,6 +164,7 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "feature/login-screen",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Maki/Maki2",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
@@ -183,7 +182,12 @@
       <recent name="C:\Users\Matija\StudioProjects\rmai26-brzina-i-instruktori\Software\app\src\main\res\layout" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle sync" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="MemojiMatch.app" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -250,6 +254,36 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="C:/Users/Maki/Maki2 [sync]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="sync" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.C:/Users/Maki/Maki2 [sync]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

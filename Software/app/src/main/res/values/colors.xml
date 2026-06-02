@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Profil ekran (Fragment + RecyclerView) -->
     <color name="bg">#1E1B3A</color>
     <color name="accent">#6C5CE7</color>
     <color name="accent_transparent">#4D6C5CE7</color>
     <color name="surface">#2A2650</color>
     <color name="hint">#8B86B0</color>
+
+    <!-- Game / history / leaderboard / level select -->
+    <color name="bg_deep">#14122A</color>
+    <color name="bg_main">#1E1B3A</color>
+    <color name="accent_purple">#6C5CE7</color>
+    <color name="accent_muted">#3A3566</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Result ekran -->
+    <color name="penalty_red">#E74C3C</color>
+    <color name="green">#2ECC71</color>
 </resources>

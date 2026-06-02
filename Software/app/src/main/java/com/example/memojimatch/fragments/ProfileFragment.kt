@@ -1,49 +1,71 @@
-package com.example.memojimatch.fragments
+package com.example.memojimatch.ui.profile
 
 import android.os.Bundle
-import android.util.Log
+import android.view.*
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.memojimatch.R
-import com.example.memojimatch.data.AppDatabase
-import kotlinx.coroutines.launch
-import com.example.memojimatch.data.User
+import com.example.memojimatch.data.ProfileRepository
+import com.example.memojimatch.databinding.FragmentProfileBinding
+
 class ProfileFragment : Fragment() {
 
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: ProfileViewModel by viewModels {
+        ProfileViewModelFactory(ProfileRepository(requireContext()))
+    }
+
+    private val avatars = listOf("🐼", "🦊", "🐶", "🐱", "🦁", "🐸", "🐵", "🐰", "🐯", "🦄")
+    private lateinit var adapter: AvatarAdapter
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val btnSave = view.findViewById<Button>(R.id.btnSaveProfile)
-        btnSave.setOnClickListener {
-            val username = view.findViewById<EditText>(R.id.etUsername).text.toString()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adapter = AvatarAdapter(avatars) { emoji -> viewModel.selectAvatar(emoji) }
+        binding.avatarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 5)
+        binding.avatarRecyclerView.adapter = adapter
 
-            val db = AppDatabase.getDatabase(requireContext())
-            val userDao = db.userDao()
-
-            lifecycleScope.launch {
-                val newUser = User(username = username, avatarIndex = 1)
-                userDao.insertUser(newUser)
-                Log.d("TEST_BAZE", "Korisnik spremljen: $username")
-
-                val savedUser = userDao.getUser()
-                if (savedUser != null) {
-                    Log.d("TEST_BAZE", "Pročitano iz baze: ${savedUser.username}, Index: ${savedUser.avatarIndex}")
-                            findNavController().navigate(R.id.levelSelectFragment)
-                }else{
-                    Log.e("TEST_BAZE", "Greska: Korisnik nije pronaden u bazi!")
-                }
-            }
+        binding.usernameInput.doAfterTextChanged {
+            viewModel.setUsername(it?.toString() ?: "")
         }
 
-        return view
+        binding.continueButton.setOnClickListener {
+            viewModel.saveProfile()
+            findNavController().navigate(R.id.action_profile_to_main)
+        }
+
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.username.observe(viewLifecycleOwner) { name ->
+            // postavi samo na učitavanju (izbjegni petlju s text watcherom)
+            if (binding.usernameInput.text.toString() != name) {
+                binding.usernameInput.setText(name)
+            }
+        }
+        viewModel.selectedAvatar.observe(viewLifecycleOwner) { emoji ->
+            adapter.setSelected(emoji)
+            binding.selectedAvatarPreview.text = emoji ?: "🙂"
+        }
+        viewModel.canConfirm.observe(viewLifecycleOwner) { enabled ->
+            binding.continueButton.isEnabled = enabled
+            binding.continueButton.alpha = if (enabled) 1f else 0.4f
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

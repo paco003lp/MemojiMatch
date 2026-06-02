@@ -1,44 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav_graph"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/profileFragment">
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.memojimatch.fragments.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile"/>
+        android:name="com.example.memojimatch.ui.profile.ProfileFragment"
+        android:label="Profil">
+        <action
+            android:id="@+id/action_profile_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
-        android:id="@+id/gameFragment"
-        android:name="com.example.memojimatch.fragments.GameFragment"
-        android:label="@string/btn_new_game"
-        tools:layout="@layout/fragment_game"/>
-
-    <fragment
-        android:id="@+id/leaderboardFragment"
-        android:name="com.example.memojimatch.fragments.LeaderboardFragment"
-        android:label="@string/title_leaderboard"
-        tools:layout="@layout/fragment_leaderboard"/>
-
-    <fragment
-        android:id="@+id/levelSelectFragment"
-        android:name="com.example.memojimatch.fragments.LevelSelectFragment"
-        android:label="@string/select_level"
-        tools:layout="@layout/fragment_level_select" />
-
-    <fragment
-        android:id="@+id/resultFragment"
-        android:name="com.example.memojimatch.fragments.ResultFragment"
-        android:label="@string/msg_win"
-        tools:layout="@layout/fragment_result" />
-
-    <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.example.memojimatch.fragments.HistoryFragment"
-        android:label="@string/label_history_title"
-        tools:layout="@layout/fragment_history" />
-
+        android:id="@+id/mainFragment"
+        android:name="com.example.memojimatch.ui.main.MainFragment"
+        android:label="Glavni izbornik" />
 </navigation>

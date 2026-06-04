@@ -17,4 +17,14 @@
     <!-- Result ekran -->
     <color name="penalty_red">#E74C3C</color>
     <color name="green">#2ECC71</color>
+
+    <color name="ms_background">#15122B</color>
+    <color name="ms_card">#221D43</color>
+    <color name="ms_card_selected">#2C2655</color>
+    <color name="ms_accent">#7B6EF6</color>
+    <color name="ms_accent_dark">#6C5CE7</color>
+    <color name="ms_orange">#F5A623</color>
+    <color name="ms_badge">#342F5E</color>
+    <color name="ms_text_primary">#FFFFFF</color>
+    <color name="ms_text_secondary">#8E89B8</color>
 </resources>

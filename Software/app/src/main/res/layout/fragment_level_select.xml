@@ -1,150 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_deep">
+    android:orientation="vertical"
+    android:background="@color/ms_background"
+    android:padding="20dp"
+    android:paddingTop="32dp">
 
-    <ImageView
-        android:id="@+id/ivUserAvatar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="48dp"
-        android:background="@color/bg_main"
-        android:padding="12dp"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/desc_avatar" />
-
-    <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/hint_username"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivUserAvatar" />
-
-    <TextView
-        android:id="@+id/tvSelectLevelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/select_level"
-        android:textColor="@color/accent_muted"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUserName" />
-
+    <!-- ZAGLAVLJE: avatar + ime + rekord -->
     <LinearLayout
-        android:id="@+id/llLevels"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSelectLevelLabel">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtAvatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/bg_avatar_circle"
+            android:gravity="center"
+            android:textSize="30sp"
+            tools:text="🐼" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="@color/bg_main"
-            android:padding="16dp">
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/tvEasy"
+                android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/level_easy"
-                android:textColor="@color/white"
+                android:textColor="@color/ms_text_primary"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:text="Ana" />
 
             <TextView
+                android:id="@+id/txtRecord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/level_easy_desc"
-                android:textColor="@color/accent_muted"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvEasy" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="@color/accent_purple"
-            android:padding="16dp">
-            <TextView
-                android:id="@+id/tvMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level_medium"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level_medium_desc"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMedium" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_main"
-            android:padding="16dp">
-            <TextView
-                android:id="@+id/tvHard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level_hard"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level_hard_desc"
-                android:textColor="@color/accent_muted"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvHard" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="2dp"
+                android:textColor="@color/ms_text_secondary"
+                android:textSize="13sp"
+                tools:text="REKORD:1480" />
+        </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="14dp"
+        android:text="ODABERI RAZINU"
+        android:textColor="@color/ms_text_secondary"
+        android:textSize="12sp"
+        android:letterSpacing="0.08" />
+
+    <!-- KARTICA: EASY -->
+    <LinearLayout
+        android:id="@+id/cardEasy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_level_card"
+        android:padding="18dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EASY"
+                android:textColor="@color/ms_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="4×4 · 16 kartica · 60s"
+                android:textColor="@color/ms_text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/badgeEasy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="44dp"
+            android:background="@drawable/bg_score_badge"
+            android:gravity="center"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textColor="@color/ms_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="8" />
+    </LinearLayout>
+
+    <!-- KARTICA: MEDIUM -->
+    <LinearLayout
+        android:id="@+id/cardMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_level_card"
+        android:padding="18dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MEDIUM"
+                android:textColor="@color/ms_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="6×6 · 36 kartica · 90s"
+                android:textColor="@color/ms_text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/badgeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="44dp"
+            android:background="@drawable/bg_score_badge"
+            android:gravity="center"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textColor="@color/ms_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="13" />
+    </LinearLayout>
+
+    <!-- KARTICA: HARD -->
+    <LinearLayout
+        android:id="@+id/cardHard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_level_card"
+        android:padding="18dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HARD"
+                android:textColor="@color/ms_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="8×8 · 64 kartica · 120s"
+                android:textColor="@color/ms_text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/badgeHard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="44dp"
+            android:background="@drawable/bg_score_badge"
+            android:gravity="center"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textColor="@color/ms_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="20" />
+    </LinearLayout>
+
+    <!-- razmak koji gura gumb na dno -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/accent_purple"
-        android:text="@string/btn_play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_play_button"
+        android:text="Igraj"
+        android:textAllCaps="false"
+        android:textColor="@color/ms_text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -20,6 +20,21 @@
           <theme>@style/Theme.MemojiMatch</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_back.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_front.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_matched.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_circle.xml">
         <config>
           <theme>@style/Theme.MemojiMatch</theme>
@@ -35,6 +50,16 @@
           <theme>@style/Theme.MemojiMatch</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_mode_badge.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_penalty.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_play_button.xml">
         <config>
           <theme>@style/Theme.MemojiMatch</theme>
@@ -45,7 +70,22 @@
           <theme>@style/Theme.MemojiMatch</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_top_bar.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/drawable/progress_timer.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/layout/activity_main.xml">
+        <config>
+          <theme>@style/Theme.MemojiMatch</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_game.xml">
         <config>
           <theme>@style/Theme.MemojiMatch</theme>
         </config>
@@ -86,18 +126,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38aa751b-2fe3-4d2b-b078-7c4f0b7f841c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LevelSelectFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_avatar_circle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_level_card.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_play_button.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_score_badge.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+    <list default="true" id="38aa751b-2fe3-4d2b-b078-7c4f0b7f841c" name="Changes" comment="feat: ekran za odabir razine (level select)">
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/GameFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_back.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_front.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_matched.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_mode_badge.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_penalty.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_top_bar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/progress_timer.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LevelSelectFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LevelSelectFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_game.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_game.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_level_select.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_level_select.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/navigation/main_nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/navigation/main_nav_graph.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,8 +175,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -287,6 +329,15 @@
       <option name="presentableId" value="Default" />
       <updated>1776888596559</updated>
     </task>
+    <task id="LOCAL-00001" summary="feat: ekran za odabir razine (level select)">
+      <option name="closed" value="true" />
+      <created>1780595951388</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1780595951390</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,6 +362,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: ekran za odabir razine (level select)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: ekran za odabir razine (level select)" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">

@@ -20,6 +20,21 @@
         android:id="@+id/mainFragment"
         android:name="com.example.memojimatch.fragments.LevelSelectFragment"
         android:label="Odaberi razinu"
-        tools:layout="@layout/fragment_level_select" />
+        tools:layout="@layout/fragment_level_select">
+        <action
+            android:id="@+id/action_main_to_game"
+            app:destination="@id/gameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.memojimatch.fragments.GameFragment"
+        android:label="Igra"
+        tools:layout="@layout/fragment_game">
+        <argument
+            android:name="level"
+            app:argType="string"
+            android:defaultValue="EASY" />
+    </fragment>
 
 </navigation>

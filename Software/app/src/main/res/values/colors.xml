@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg_deep">#150D38</color>
-    <color name="bg_main">#1E1250</color>
-    <color name="accent_purple">#7C6FD4</color>
-    <color name="accent_muted">#6B5FA8</color>
-    <color name="accent_light">#E2DEFF</color>
-    <color name="green">#1D9E75</color>
-    <color name="penalty_red">#FF6B6B</color>
-    <color name="penalty_bg">#3D1A1A</color>
+    <!-- Profil ekran (Fragment + RecyclerView) -->
+    <color name="bg">#1E1B3A</color>
+    <color name="accent">#6C5CE7</color>
+    <color name="accent_transparent">#4D6C5CE7</color>
+    <color name="surface">#2A2650</color>
+    <color name="hint">#8B86B0</color>
+
+    <!-- Game / history / leaderboard / level select -->
+    <color name="bg_deep">#14122A</color>
+    <color name="bg_main">#1E1B3A</color>
+    <color name="accent_purple">#6C5CE7</color>
+    <color name="accent_muted">#3A3566</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Result ekran -->
+    <color name="penalty_red">#E74C3C</color>
+    <color name="green">#2ECC71</color>
+
+    <color name="ms_background">#15122B</color>
+    <color name="ms_card">#221D43</color>
+    <color name="ms_card_selected">#2C2655</color>
+    <color name="ms_accent">#7B6EF6</color>
+    <color name="ms_accent_dark">#6C5CE7</color>
+    <color name="ms_orange">#F5A623</color>
+    <color name="ms_badge">#342F5E</color>
+    <color name="ms_text_primary">#FFFFFF</color>
+    <color name="ms_text_secondary">#8E89B8</color>
 </resources>

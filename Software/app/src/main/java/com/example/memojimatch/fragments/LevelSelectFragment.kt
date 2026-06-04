@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.memojimatch.R
 import com.example.memojimatch.data.ProfileRepository
+import androidx.navigation.fragment.findNavController
 
 class LevelSelectFragment : Fragment() {
 
@@ -58,8 +59,8 @@ class LevelSelectFragment : Fragment() {
         selectLevel(selectedLevel)
 
         btnPlay.setOnClickListener {
-            // TODO: kad GameFragment bude gotov, ovdje navigiraj i proslijedi selectedLevel
-            Toast.makeText(requireContext(), "Igram razinu: $selectedLevel", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply { putString("level", selectedLevel.name) }
+            findNavController().navigate(R.id.action_main_to_game, bundle)
         }
     }
 

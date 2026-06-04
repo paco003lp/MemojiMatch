@@ -1,64 +1,135 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_deep">
+    android:orientation="vertical"
+    android:background="@color/ms_background"
+    android:padding="16dp"
+    android:paddingTop="28dp">
 
-    <View
-        android:id="@+id/headerBg"
+    <!-- GORNJA TRAKA -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/bg_main"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTimerLabel"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="@string/timer"
-        android:textColor="@color/accent_muted"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@id/tvTimerValue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/headerBg"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_top_bar"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvTimerValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/timer_placeholder"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/headerBg"
-        app:layout_constraintStart_toStartOf="@id/tvTimerLabel"
-        app:layout_constraintTop_toBottomOf="@id/tvTimerLabel" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VRIJEME"
+                android:textColor="@color/ms_text_secondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.08" />
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ms_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="0:42" />
+        </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGameGrid"
-        android:layout_width="0dp"
+        <TextView
+            android:id="@+id/txtMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_mode_badge"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="6dp"
+            android:textColor="@color/ms_text_primary"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:text="MEDIUM" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="end">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SCORE"
+                android:textColor="@color/ms_text_secondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.08" />
+            <TextView
+                android:id="@+id/txtScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ms_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="0" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressTime"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/progress_timer" />
+
+    <!-- GRID -->
+    <FrameLayout
+        android:id="@+id/gridContainer"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="4"
-        app:layout_constraintBottom_toTopOf="@id/btnStartGame"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerBg"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        android:layout_weight="1"
+        android:layout_marginTop="16dp">
 
-    <Button
-        android:id="@+id/btnStartGame"
-        android:layout_width="wrap_content"
+        <GridLayout
+            android:id="@+id/gridGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <!-- DONJI RED -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/accent_purple"
-        android:text="@string/btn_start_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="12dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtPairs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/ms_text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="1/8 parova" />
+
+        <TextView
+            android:id="@+id/txtPenalty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_penalty"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:textColor="@color/ms_text_primary"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            tools:text="-10 kazna" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -62,16 +62,6 @@
         android:id="@+id/leaderboardFragment"
         android:name="com.example.memojimatch.fragments.LeaderboardFragment"
         android:label="Ljestvica"
-        tools:layout="@layout/fragment_leaderboard">
-        <action
-            android:id="@+id/action_leaderboard_to_history"
-            app:destination="@id/historyFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.example.memojimatch.fragments.HistoryFragment"
-        android:label="Povijest"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_leaderboard" />
 
 </navigation>

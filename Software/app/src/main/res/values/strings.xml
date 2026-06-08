@@ -43,4 +43,9 @@
     <string name="label_points">bodova</string>
     <string name="desc_avatar">User Avatar</string>
     <string name="desc">Medium - Ana</string>
+
+    <!-- Leaderboard -->
+    <string name="leaderboard_empty">Još nema rezultata —\nodigraj prvu igru!</string>
+    <string name="leaderboard_meta">%1$s · %2$s</string>
+    <string name="leaderboard_own_marker">◄</string>
 </resources>

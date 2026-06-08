@@ -89,6 +89,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tvTimeRemaining"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/timer_placeholder"
@@ -109,6 +110,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tvErrorCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kazna"
@@ -129,6 +131,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tvPairsCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/parovi"

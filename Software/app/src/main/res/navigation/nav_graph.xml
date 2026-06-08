@@ -5,21 +5,22 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/profileFragment">
 
+    <!-- Onboarding / Profil tab -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.memojimatch.ui.profile.ProfileFragment"
-        android:label="Profil">
+        android:label="Profil"
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profile_to_main"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/profileFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/levelSelectFragment" />
     </fragment>
 
+    <!-- Igra tab (top-level) -->
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/levelSelectFragment"
         android:name="com.example.memojimatch.fragments.LevelSelectFragment"
-        android:label="Odaberi razinu"
+        android:label="Igra"
         tools:layout="@layout/fragment_level_select">
         <action
             android:id="@+id/action_main_to_game"
@@ -35,6 +36,42 @@
             android:name="level"
             app:argType="string"
             android:defaultValue="EASY" />
+        <action
+            android:id="@+id/action_game_to_result"
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.memojimatch.fragments.ResultFragment"
+        android:label="Rezultat"
+        tools:layout="@layout/fragment_result">
+        <argument android:name="score"                app:argType="integer" android:defaultValue="0" />
+        <argument android:name="timeRemainingSeconds" app:argType="integer" android:defaultValue="0" />
+        <argument android:name="errorCount"           app:argType="integer" android:defaultValue="0" />
+        <argument android:name="matchedPairs"         app:argType="integer" android:defaultValue="0" />
+        <argument android:name="totalPairs"           app:argType="integer" android:defaultValue="0" />
+        <argument android:name="levelName"            app:argType="string"  android:defaultValue="EASY" />
+        <argument android:name="won"                  app:argType="boolean" android:defaultValue="false" />
+    </fragment>
+
+    <!-- Ljestvica tab -->
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.example.memojimatch.fragments.LeaderboardFragment"
+        android:label="Ljestvica"
+        tools:layout="@layout/fragment_leaderboard">
+        <action
+            android:id="@+id/action_leaderboard_to_history"
+            app:destination="@id/historyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.memojimatch.fragments.HistoryFragment"
+        android:label="Povijest"
+        tools:layout="@layout/fragment_history" />
 
 </navigation>

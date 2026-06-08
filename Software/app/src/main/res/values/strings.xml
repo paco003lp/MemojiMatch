@@ -23,6 +23,7 @@
     <string name="label_history">POVIJEST IGARA</string>
 
     <string name="msg_win">Pobijedio si!</string>
+    <string name="msg_time_up">Vrijeme je isteklo!</string>
     <string name="label_total_score">UKUPNI BODOVI</string>
     <string name="points">1240</string>
     <string name="kazna">-3</string>

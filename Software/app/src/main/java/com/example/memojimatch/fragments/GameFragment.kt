@@ -13,7 +13,6 @@ import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.memojimatch.R
@@ -49,6 +48,8 @@ class GameFragment : Fragment() {
     private var hasMatchedAny = false
     private var score = 0
     private var matchedPairs = 0
+    private var errorCount = 0
+    private var timeRemainingMs = 0L
 
     private var timer: CountDownTimer? = null
     private val handler = Handler(Looper.getMainLooper())
@@ -87,6 +88,7 @@ class GameFragment : Fragment() {
             Level.MEDIUM -> { cols = 4; rows = 6; timeMs = 90_000 }
             Level.HARD -> { cols = 6; rows = 6; timeMs = 120_000 }
         }
+        timeRemainingMs = timeMs
         totalPairs = (rows * cols) / 2
 
         txtMode.text = level.name
@@ -155,6 +157,7 @@ class GameFragment : Fragment() {
                 isBusy = false
                 if (matchedPairs == totalPairs) onWin()
             } else {
+                errorCount++
                 if (hasMatchedAny) {
                     score = max(0, score - PENALTY)
                     showPenalty()
@@ -187,6 +190,7 @@ class GameFragment : Fragment() {
         timerStarted = true
         timer = object : CountDownTimer(timeMs, 100) {
             override fun onTick(ms: Long) {
+                timeRemainingMs = ms
                 txtTime.text = formatTime((ms / 1000).toInt())
                 progressTime.progress = ((ms.toFloat() / timeMs) * 100).toInt()
             }
@@ -212,23 +216,27 @@ class GameFragment : Fragment() {
     private fun onWin() {
         timer?.cancel()
         saveScore()
-        endDialog("Bravo! 🎉", "Spojio si sve parove!\nBodovi: $score")
+        navigateToResult(won = true)
     }
 
     private fun onTimeUp() {
         isBusy = true
         saveScore()
-        endDialog("Vrijeme je isteklo ⏱", "Parovi: $matchedPairs/$totalPairs\nBodovi: $score")
+        navigateToResult(won = false)
     }
 
-    private fun endDialog(title: String, message: String) {
+    private fun navigateToResult(won: Boolean) {
         if (!isAdded) return
-        AlertDialog.Builder(requireContext())
-            .setTitle(title)
-            .setMessage(message)
-            .setCancelable(false)
-            .setPositiveButton("Natrag") { _, _ -> findNavController().popBackStack() }
-            .show()
+        val bundle = Bundle().apply {
+            putInt("score", score)
+            putInt("timeRemainingSeconds", (timeRemainingMs / 1000).toInt())
+            putInt("errorCount", errorCount)
+            putInt("matchedPairs", matchedPairs)
+            putInt("totalPairs", totalPairs)
+            putString("levelName", level.name)
+            putBoolean("won", won)
+        }
+        findNavController().navigate(R.id.action_game_to_result, bundle)
     }
 
     private fun saveScore() {

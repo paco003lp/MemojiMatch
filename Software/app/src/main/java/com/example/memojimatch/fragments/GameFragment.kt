@@ -14,12 +14,16 @@ import android.widget.GridLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.memojimatch.R
+import com.example.memojimatch.viewmodels.GameViewModel
 import kotlin.math.max
 import kotlin.math.min
 
 class GameFragment : Fragment() {
+
+    private val viewModel: GameViewModel by viewModels()
 
     enum class Level { EASY, MEDIUM, HARD }
 
@@ -215,13 +219,23 @@ class GameFragment : Fragment() {
 
     private fun onWin() {
         timer?.cancel()
-        saveScore()
+        viewModel.saveResult(
+            score = score,
+            difficulty = level.name,
+            timeRemaining = (timeRemainingMs / 1000).toInt(),
+            isWon = true
+        )
         navigateToResult(won = true)
     }
 
     private fun onTimeUp() {
         isBusy = true
-        saveScore()
+        viewModel.saveResult(
+            score = score,
+            difficulty = level.name,
+            timeRemaining = (timeRemainingMs / 1000).toInt(),
+            isWon = false
+        )
         navigateToResult(won = false)
     }
 
@@ -235,25 +249,11 @@ class GameFragment : Fragment() {
             putInt("totalPairs", totalPairs)
             putString("levelName", level.name)
             putBoolean("won", won)
+            putString("username", viewModel.username.value)
         }
         findNavController().navigate(R.id.action_game_to_result, bundle)
     }
 
-    private fun saveScore() {
-        val prefs = requireContext()
-            .getSharedPreferences("user_profile", android.content.Context.MODE_PRIVATE)
-        val levelKey = when (level) {
-            Level.EASY -> "best_easy"
-            Level.MEDIUM -> "best_medium"
-            Level.HARD -> "best_hard"
-        }
-        val prevLevel = prefs.getInt(levelKey, 0)
-        val prevBest = prefs.getInt("best_score", 0)
-        prefs.edit()
-            .putInt(levelKey, max(prevLevel, score))
-            .putInt("best_score", max(prevBest, score))
-            .apply()
-    }
 
     private fun formatTime(totalSeconds: Int): String {
         val m = totalSeconds / 60

@@ -31,16 +31,14 @@ class HistoryAdapter : ListAdapter<GameResult, HistoryAdapter.ViewHolder>(DiffCa
         val result = getItem(position)
         val ctx = holder.itemView.context
 
-        val won = result.matchedPairs == result.totalPairs
+        val badgeColor = if (result.isWon) R.color.green else R.color.penalty_red
+        val scoreColor = if (result.isWon) R.color.green else R.color.penalty_red
 
-        val badgeColor = if (won) R.color.green else R.color.penalty_red
-        val scoreColor = if (won) R.color.green else R.color.penalty_red
-
-        holder.tvBadge.text = ctx.getString(if (won) R.string.history_badge_win else R.string.history_badge_loss)
+        holder.tvBadge.text = ctx.getString(if (result.isWon) R.string.history_badge_win else R.string.history_badge_loss)
         holder.tvBadge.backgroundTintList = ContextCompat.getColorStateList(ctx, badgeColor)
 
-        holder.tvLevel.text  = result.level.lowercase().replaceFirstChar { it.uppercase() }
-        holder.tvDate.text   = DateFormatter.format(result.timestamp)
+        holder.tvLevel.text  = result.difficulty.lowercase().replaceFirstChar { it.uppercase() }
+        holder.tvDate.text   = DateFormatter.format(result.playedAt)
         holder.tvScore.text  = result.score.toString()
         holder.tvScore.setTextColor(ContextCompat.getColor(ctx, scoreColor))
     }

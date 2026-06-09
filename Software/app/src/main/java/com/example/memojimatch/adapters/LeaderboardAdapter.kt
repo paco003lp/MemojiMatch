@@ -13,7 +13,8 @@ import com.example.memojimatch.data.GameResult
 import com.example.memojimatch.util.DateFormatter
 
 class LeaderboardAdapter(
-    private val currentUsername: String
+    private val currentUsername: String,
+    private val currentAvatarEmoji: String
 ) : ListAdapter<GameResult, LeaderboardAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -45,16 +46,16 @@ class LeaderboardAdapter(
         holder.tvRank.text  = rank.toString()
         holder.tvRank.setTextColor(if (isFirst) highlightColor else normalColor)
 
-        holder.tvAvatar.text  = result.avatar
+        holder.tvAvatar.text  = currentAvatarEmoji
         holder.tvName.text    = result.username
         holder.tvScore.text   = result.score.toString()
         holder.tvScore.setTextColor(if (isFirst) highlightColor else normalColor)
 
-        val levelDisplay = result.level.lowercase().replaceFirstChar { it.uppercase() }
+        val levelDisplay = result.difficulty.lowercase().replaceFirstChar { it.uppercase() }
         holder.tvMeta.text = ctx.getString(
             R.string.leaderboard_meta,
             levelDisplay,
-            DateFormatter.format(result.timestamp)
+            DateFormatter.format(result.playedAt)
         )
 
         holder.tvOwn.visibility = if (isOwn) View.VISIBLE else View.GONE

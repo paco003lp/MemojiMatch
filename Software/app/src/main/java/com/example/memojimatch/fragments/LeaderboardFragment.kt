@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.memojimatch.R
 import com.example.memojimatch.adapters.LeaderboardAdapter
-import com.example.memojimatch.data.ProfileRepository
 import com.example.memojimatch.viewmodels.LeaderboardViewModel
 import kotlinx.coroutines.launch
 
@@ -35,11 +34,14 @@ class LeaderboardFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvLeaderboard)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val currentUsername = ProfileRepository(requireContext()).getUsername()
-            val adapter = LeaderboardAdapter(currentUsername)
-            recyclerView.adapter = adapter
-
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.load()
+                val adapter = LeaderboardAdapter(
+                    currentUsername = viewModel.username.value,
+                    currentAvatarEmoji = viewModel.avatarEmoji.value
+                )
+                recyclerView.adapter = adapter
+
                 viewModel.topResults.collect { results ->
                     adapter.submitList(results)
                     tvEmpty.visibility = if (results.isEmpty()) View.VISIBLE else View.GONE

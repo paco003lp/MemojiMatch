@@ -49,6 +49,8 @@
     <string name="leaderboard_meta">%1$s · %2$s</string>
     <string name="leaderboard_own_marker">◄</string>
 
+    <string name="label_record">REKORD: %1$d</string>
+
     <!-- History -->
     <string name="history_empty">Još nema odigranih partija!</string>
     <string name="history_badge_win">W</string>

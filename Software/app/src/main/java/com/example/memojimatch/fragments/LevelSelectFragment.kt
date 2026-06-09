@@ -10,9 +10,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.memojimatch.R
 import com.example.memojimatch.data.ProfileRepository
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 
 class LevelSelectFragment : Fragment() {
 
@@ -76,8 +78,10 @@ class LevelSelectFragment : Fragment() {
 
     private fun loadProfile() {
         val repo = ProfileRepository(requireContext())
-        txtName.text = repo.getUsername().ifBlank { "Igrač" }
-        txtAvatar.text = repo.getAvatar() ?: "🐼"
+        lifecycleScope.launch {
+            txtName.text = repo.getUsername().ifBlank { "Igrač" }
+            txtAvatar.text = repo.getAvatarEmoji()
+        }
     }
 
     private fun loadScores() {

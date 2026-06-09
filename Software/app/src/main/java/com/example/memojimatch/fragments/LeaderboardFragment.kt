@@ -31,13 +31,14 @@ class LeaderboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currentUsername = ProfileRepository(requireContext()).getUsername()
-        val adapter = LeaderboardAdapter(currentUsername)
         val tvEmpty = view.findViewById<TextView>(R.id.tvEmpty)
-
-        view.findViewById<RecyclerView>(R.id.rvLeaderboard).adapter = adapter
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rvLeaderboard)
 
         viewLifecycleOwner.lifecycleScope.launch {
+            val currentUsername = ProfileRepository(requireContext()).getUsername()
+            val adapter = LeaderboardAdapter(currentUsername)
+            recyclerView.adapter = adapter
+
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.topResults.collect { results ->
                     adapter.submitList(results)

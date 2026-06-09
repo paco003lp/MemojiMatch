@@ -1,16 +1,15 @@
 package com.example.memojimatch.data
 
-/**
- * Predstavlja jedan odigrani rezultat.
- * TODO: dodati @Entity i Room anotacije kada baza bude gotova.
- */
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "game_results")
 data class GameResult(
-    val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val username: String,
-    val avatar: String,
     val score: Int,
-    val level: String,
-    val timestamp: Long,
-    val matchedPairs: Int,
-    val totalPairs: Int
+    val difficulty: String,
+    val timeRemaining: Int,
+    val isWon: Boolean,
+    val playedAt: Long
 )

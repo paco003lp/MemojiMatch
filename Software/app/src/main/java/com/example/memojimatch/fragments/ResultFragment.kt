@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.memojimatch.R
-import com.example.memojimatch.data.ProfileRepository
-import kotlinx.coroutines.launch
 
 class ResultFragment : Fragment() {
 
@@ -32,22 +29,17 @@ class ResultFragment : Fragment() {
         val levelName     = args?.getString("levelName", "EASY") ?: "EASY"
         val won           = args?.getBoolean("won", false) ?: false
 
+        val username     = args?.getString("username", "") ?: ""
         val levelDisplay = levelName.lowercase().replaceFirstChar { it.uppercase() }
 
         view.findViewById<TextView>(R.id.tvWinMsg).text =
             if (won) getString(R.string.msg_win) else getString(R.string.msg_time_up)
 
         view.findViewById<TextView>(R.id.tvFinalScore).text    = score.toString()
+        view.findViewById<TextView>(R.id.tvLevelUser).text     = "$levelDisplay - $username"
         view.findViewById<TextView>(R.id.tvTimeRemaining).text = formatTime(timeRemaining)
         view.findViewById<TextView>(R.id.tvErrorCount).text    = "-$errorCount"
         view.findViewById<TextView>(R.id.tvPairsCount).text    = "$matchedPairs/$totalPairs"
-
-        // Async učitavanje username-a iz Room
-        val tvLevelUser = view.findViewById<TextView>(R.id.tvLevelUser)
-        lifecycleScope.launch {
-            val username = ProfileRepository(requireContext()).getUsername()
-            tvLevelUser.text = "$levelDisplay - $username"
-        }
 
         view.findViewById<Button>(R.id.btnNewGame).setOnClickListener {
             val bundle = Bundle().apply { putString("level", levelName) }

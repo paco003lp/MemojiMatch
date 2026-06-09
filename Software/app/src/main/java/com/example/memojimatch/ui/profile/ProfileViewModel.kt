@@ -2,20 +2,27 @@ package com.example.memojimatch.ui.profile
 
 import androidx.lifecycle.*
 import com.example.memojimatch.data.ProfileRepository
+import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() {
 
-    private val _username = MutableLiveData(repository.getUsername())
+    private val _username = MutableLiveData("")
     val username: LiveData<String> = _username
 
-    private val _selectedAvatar = MutableLiveData(repository.getAvatar())
+    private val _selectedAvatar = MutableLiveData<String?>(null)
     val selectedAvatar: LiveData<String?> = _selectedAvatar
 
-    // Aktivan gumb samo kad postoje ime I avatar
     val canConfirm = MediatorLiveData<Boolean>().apply {
-        value = validate()
+        value = false
         addSource(_username) { value = validate() }
         addSource(_selectedAvatar) { value = validate() }
+    }
+
+    init {
+        viewModelScope.launch {
+            _username.value = repository.getUsername()
+            _selectedAvatar.value = repository.getAvatarEmoji()
+        }
     }
 
     private fun validate(): Boolean =
@@ -25,7 +32,11 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     fun selectAvatar(emoji: String) { _selectedAvatar.value = emoji }
 
     fun saveProfile() {
-        repository.saveProfile(_username.value!!.trim(), _selectedAvatar.value!!)
+        val name = _username.value?.trim() ?: return
+        val emoji = _selectedAvatar.value ?: return
+        viewModelScope.launch {
+            repository.saveProfile(name, emoji)
+        }
     }
 }
 

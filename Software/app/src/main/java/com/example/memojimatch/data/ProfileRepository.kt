@@ -4,21 +4,20 @@ import android.content.Context
 
 class ProfileRepository(context: Context) {
 
-    private val prefs =
-        context.getSharedPreferences("user_profile", Context.MODE_PRIVATE)
+    private val userDao = AppDatabase.getDatabase(context).userDao()
 
-    fun saveProfile(username: String, avatar: String) {
-        prefs.edit()
-            .putString(KEY_USERNAME, username)
-            .putString(KEY_AVATAR, avatar)
-            .apply()
+    suspend fun saveProfile(username: String, avatarEmoji: String) {
+        userDao.insertUser(
+            User(
+                id = 1,
+                username = username,
+                avatarIndex = AvatarList.indexOf(avatarEmoji)
+            )
+        )
     }
 
-    fun getUsername(): String = prefs.getString(KEY_USERNAME, "") ?: ""
-    fun getAvatar(): String? = prefs.getString(KEY_AVATAR, null)
+    suspend fun getUsername(): String = userDao.getUser()?.username ?: ""
 
-    companion object {
-        private const val KEY_USERNAME = "username"
-        private const val KEY_AVATAR = "avatar"
-    }
+    suspend fun getAvatarEmoji(): String =
+        AvatarList.emojiAt(userDao.getUser()?.avatarIndex ?: 0)
 }

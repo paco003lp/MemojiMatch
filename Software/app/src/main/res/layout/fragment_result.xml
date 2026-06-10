@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_deep"
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/desc"
+        tools:text="Easy - Ana"
         android:textColor="@color/accent_muted"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +55,7 @@
             android:id="@+id/tvFinalScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/points"
+            tools:text="1240"
             android:textColor="@color/white"
             android:textSize="36sp"
             android:textStyle="bold"
@@ -113,7 +114,7 @@
                 android:id="@+id/tvErrorCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kazna"
+                tools:text="-3"
                 android:textColor="@color/penalty_red"
                 android:textStyle="bold" />
             <TextView
@@ -134,7 +135,7 @@
                 android:id="@+id/tvPairsCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/parovi"
+                tools:text="18/18"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView

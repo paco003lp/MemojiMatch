@@ -13,9 +13,15 @@ import com.example.memojimatch.data.GameResult
 import com.example.memojimatch.util.DateFormatter
 
 class LeaderboardAdapter(
-    private val currentUsername: String,
-    private val currentAvatarEmoji: String
+    private var currentUsername: String,
+    private var currentAvatarEmoji: String
 ) : ListAdapter<GameResult, LeaderboardAdapter.ViewHolder>(DiffCallback) {
+
+    fun updateCurrentUser(username: String, avatarEmoji: String) {
+        currentUsername = username
+        currentAvatarEmoji = avatarEmoji
+        notifyItemRangeChanged(0, itemCount)
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvRank: TextView     = itemView.findViewById(R.id.tvRank)
@@ -46,7 +52,7 @@ class LeaderboardAdapter(
         holder.tvRank.text  = rank.toString()
         holder.tvRank.setTextColor(if (isFirst) highlightColor else normalColor)
 
-        holder.tvAvatar.text  = currentAvatarEmoji
+        holder.tvAvatar.text  = if (isOwn) currentAvatarEmoji else "🎮"
         holder.tvName.text    = result.username
         holder.tvScore.text   = result.score.toString()
         holder.tvScore.setTextColor(if (isFirst) highlightColor else normalColor)

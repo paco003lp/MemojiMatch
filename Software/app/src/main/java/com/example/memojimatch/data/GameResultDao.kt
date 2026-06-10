@@ -14,12 +14,12 @@ interface GameResultDao {
     @Query("SELECT * FROM game_results ORDER BY score DESC LIMIT 10")
     suspend fun getTopTen(): List<GameResult>
 
-    @Query("SELECT * FROM game_results ORDER BY playedAt DESC LIMIT 5")
-    suspend fun getLastFive(): List<GameResult>
+    @Query("SELECT * FROM game_results WHERE userId = :userId ORDER BY playedAt DESC LIMIT 5")
+    suspend fun getLastFive(userId: Long): List<GameResult>
 
-    @Query("SELECT COALESCE(MAX(score), 0) FROM game_results")
-    suspend fun getBestScore(): Int
+    @Query("SELECT COALESCE(MAX(score), 0) FROM game_results WHERE userId = :userId")
+    suspend fun getBestScore(userId: Long): Int
 
-    @Query("SELECT COALESCE(MAX(score), 0) FROM game_results WHERE difficulty = :difficulty")
-    suspend fun getBestScoreByDifficulty(difficulty: String): Int
+    @Query("SELECT COALESCE(MAX(score), 0) FROM game_results WHERE userId = :userId AND difficulty = :difficulty")
+    suspend fun getBestScoreByDifficulty(userId: Long, difficulty: String): Int
 }

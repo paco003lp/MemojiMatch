@@ -8,8 +8,11 @@ import androidx.room.Query
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(user: User)
+    suspend fun insertUser(user: User): Long
 
-    @Query("SELECT * FROM user_profile WHERE id = 1")
-    suspend fun getUser(): User?
+    @Query("SELECT * FROM user_profile WHERE id = :id")
+    suspend fun getUserById(id: Long): User?
+
+    @Query("SELECT * FROM user_profile WHERE username = :username COLLATE NOCASE LIMIT 1")
+    suspend fun getUserByUsername(username: String): User?
 }

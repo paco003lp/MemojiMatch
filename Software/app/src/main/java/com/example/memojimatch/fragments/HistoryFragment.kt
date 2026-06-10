@@ -35,12 +35,16 @@ class HistoryFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loadLastFive()
                 viewModel.lastFive.collect { results ->
                     adapter.submitList(results)
                     tvEmpty.visibility = if (results.isEmpty()) View.VISIBLE else View.GONE
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewLifecycleOwner.lifecycleScope.launch { viewModel.loadLastFive() }
     }
 }

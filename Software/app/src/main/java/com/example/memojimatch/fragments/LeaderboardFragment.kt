@@ -33,15 +33,14 @@ class LeaderboardFragment : Fragment() {
         val tvEmpty = view.findViewById<TextView>(R.id.tvEmpty)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvLeaderboard)
 
+        val adapter = LeaderboardAdapter(
+            currentUsername = viewModel.username.value,
+            currentAvatarEmoji = viewModel.avatarEmoji.value
+        )
+        recyclerView.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.load()
-                val adapter = LeaderboardAdapter(
-                    currentUsername = viewModel.username.value,
-                    currentAvatarEmoji = viewModel.avatarEmoji.value
-                )
-                recyclerView.adapter = adapter
-
                 viewModel.topResults.collect { results ->
                     adapter.submitList(results)
                     tvEmpty.visibility = if (results.isEmpty()) View.VISIBLE else View.GONE
@@ -51,6 +50,15 @@ class LeaderboardFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btnGoToHistory).setOnClickListener {
             findNavController().navigate(R.id.action_leaderboard_to_history)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.load()
+            (view?.findViewById<RecyclerView>(R.id.rvLeaderboard)?.adapter as? LeaderboardAdapter)
+                ?.updateCurrentUser(viewModel.username.value, viewModel.avatarEmoji.value)
         }
     }
 }

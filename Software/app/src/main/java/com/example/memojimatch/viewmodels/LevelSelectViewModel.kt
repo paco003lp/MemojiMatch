@@ -2,13 +2,11 @@ package com.example.memojimatch.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.memojimatch.data.GameResultRepository
 import com.example.memojimatch.data.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 data class LevelSelectUiState(
     val username: String = "",
@@ -28,13 +26,14 @@ class LevelSelectViewModel(application: Application) : AndroidViewModel(applicat
     val uiState: StateFlow<LevelSelectUiState> = _uiState.asStateFlow()
 
     suspend fun load() {
+        val userId = profileRepository.getCurrentUserId()
         _uiState.value = LevelSelectUiState(
-                username = profileRepository.getUsername().ifBlank { "Igrač" },
-                avatarEmoji = profileRepository.getAvatarEmoji(),
-                bestScore = gameResultRepository.getBestScore(),
-                bestEasy = gameResultRepository.getBestScoreByDifficulty("EASY"),
-                bestMedium = gameResultRepository.getBestScoreByDifficulty("MEDIUM"),
-                bestHard = gameResultRepository.getBestScoreByDifficulty("HARD")
-            )
+            username = profileRepository.getUsername().ifBlank { "Igrač" },
+            avatarEmoji = profileRepository.getAvatarEmoji(),
+            bestScore = gameResultRepository.getBestScore(userId),
+            bestEasy = gameResultRepository.getBestScoreByDifficulty(userId, "EASY"),
+            bestMedium = gameResultRepository.getBestScoreByDifficulty(userId, "MEDIUM"),
+            bestHard = gameResultRepository.getBestScoreByDifficulty(userId, "HARD")
+        )
     }
 }

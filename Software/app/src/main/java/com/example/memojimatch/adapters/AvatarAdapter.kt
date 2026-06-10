@@ -1,4 +1,4 @@
-package com.example.memojimatch.ui.profile
+package com.example.memojimatch.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ class AvatarAdapter(
 
     fun setSelected(emoji: String?) {
         selectedEmoji = emoji
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, itemCount)
     }
 
     inner class AvatarViewHolder(val binding: ItemAvatarBinding) :
@@ -30,7 +30,7 @@ class AvatarAdapter(
     override fun onBindViewHolder(holder: AvatarViewHolder, position: Int) {
         val emoji = avatars[position]
         holder.binding.avatarEmoji.text = emoji
-        holder.binding.avatarRoot.isSelected = (emoji == selectedEmoji)  // okida selector
+        holder.binding.avatarRoot.isSelected = (emoji == selectedEmoji)
         holder.binding.avatarRoot.setOnClickListener { onAvatarClick(emoji) }
     }
 

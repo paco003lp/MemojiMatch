@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.9.8")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
     annotationProcessor ("androidx.room:room-compiler:$room_version")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
@@ -66,4 +67,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.room:room-testing:$room_version")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

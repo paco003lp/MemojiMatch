@@ -2,7 +2,7 @@ package com.example.memojimatch.data
 
 import android.content.Context
 
-class ProfileRepository(context: Context) {
+class ProfileRepository(private val context: Context) {
 
     private val userDao = AppDatabase.getDatabase(context).userDao()
 
@@ -16,8 +16,32 @@ class ProfileRepository(context: Context) {
         )
     }
 
-    suspend fun getUsername(): String = userDao.getUser()?.username ?: ""
+    suspend fun getUsername(): String {
+        val roomUser = userDao.getUser()
+        if (!roomUser?.username.isNullOrBlank()) return roomUser!!.username
 
-    suspend fun getAvatarEmoji(): String =
-        AvatarList.emojiAt(userDao.getUser()?.avatarIndex ?: 0)
+        // Jednokratna migracija iz SharedPreferences u Room
+        return migrateFromSharedPreferences()
+    }
+
+    suspend fun getAvatarEmoji(): String {
+        val roomUser = userDao.getUser()
+        if (roomUser != null) return AvatarList.emojiAt(roomUser.avatarIndex)
+
+        // Jednokratna migracija iz SharedPreferences u Room
+        migrateFromSharedPreferences()
+        return AvatarList.emojiAt(userDao.getUser()?.avatarIndex ?: 0)
+    }
+
+    private suspend fun migrateFromSharedPreferences(): String {
+        val prefs = context.getSharedPreferences("user_profile", Context.MODE_PRIVATE)
+        val username = prefs.getString("username", "") ?: ""
+        val avatarEmoji = prefs.getString("avatar", AvatarList.avatars.first()) ?: AvatarList.avatars.first()
+
+        if (username.isNotBlank()) {
+            saveProfile(username, avatarEmoji)
+        }
+
+        return username
+    }
 }

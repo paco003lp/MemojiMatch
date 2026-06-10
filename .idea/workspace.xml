@@ -127,19 +127,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38aa751b-2fe3-4d2b-b078-7c4f0b7f841c" name="Changes" comment="feat: ekran za odabir razine (level select)">
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/GameFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_back.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_front.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_card_matched.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_mode_badge.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_penalty.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/bg_top_bar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software/app/src/main/res/drawable/progress_timer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LevelSelectFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/java/com/example/memojimatch/fragments/LevelSelectFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_game.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_game.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_level_select.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/layout/fragment_level_select.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +138,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[LocalEmulator::path=C:\Users\Matija\.android\avd\Pixel_8_Pro.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Software">
       <ProjectState />
@@ -198,7 +187,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/foivz/rmai26-brzina-i-instruktori.git&quot;,
-    &quot;accountId&quot;: &quot;2027785d-98aa-4ce1-840a-82ea9b84f5eb&quot;
+    &quot;accountId&quot;: &quot;5b5a5619-a6b4-4c1b-82ff-a556fd0f3f20&quot;
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$/Software" gradleHome="C:\Users\Matija\.gradle\wrapper\dists\gradle-9.4.1-bin\arn2x92ynaizyzdaamcbpbhtj\gradle-9.4.1" javaHome="C:\Program Files\Android\Android Studio\jbr" gradleVersion="9.4.1">
@@ -234,7 +223,7 @@
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/login-screen&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
@@ -255,7 +244,6 @@
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="MemojiMatch.app" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -316,9 +304,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
+      <method v="2" />
     </configuration>
   </component>
   <component name="TaskManager">

@@ -1,14 +1,22 @@
 package com.example.memojimatch.fragments
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.content.Context
+import android.os.Build
+import com.example.memojimatch.data.SoundManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ProgressBar
@@ -16,12 +24,21 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.memojimatch.MemojiApp
 import com.example.memojimatch.R
+import com.example.memojimatch.data.SettingsManager
+import com.example.memojimatch.data.SoundType
 import com.example.memojimatch.viewmodels.GameViewModel
 import kotlin.math.max
 import kotlin.math.min
 
+
 class GameFragment : Fragment() {
+
+    private lateinit var settings: SettingsManager
+
+    private lateinit var soundManager: SoundManager
+
 
     private val viewModel: GameViewModel by viewModels()
 
@@ -72,7 +89,10 @@ class GameFragment : Fragment() {
     ): View = inflater.inflate(R.layout.fragment_game, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        settings = (requireActivity().application as MemojiApp).settings
         super.onViewCreated(view, savedInstanceState)
+
+        soundManager = SoundManager(requireContext())
 
         txtTime = view.findViewById(R.id.txtTime)
         txtScore = view.findViewById(R.id.txtScore)
@@ -142,6 +162,7 @@ class GameFragment : Fragment() {
         if (!timerStarted) startTimer()
 
         flipUp(index)
+        soundManager.play(SoundType.FLIP)
 
         val first = firstIndex
         if (first == null) {
@@ -159,9 +180,25 @@ class GameFragment : Fragment() {
                 updateHud()
                 firstIndex = null
                 isBusy = false
-                if (matchedPairs == totalPairs) onWin()
+
+                animateMatch(cardViews[first])
+                animateMatch(cardViews[index])
+
+                if (matchedPairs == totalPairs) {
+                    handler.postDelayed({ onWin() }, 350)  // čeka da animacija završi
+                }
             } else {
                 errorCount++
+                if (settings.isVibrationEnabled) {
+                    val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(200)
+                    }
+                }
+                soundManager.play(SoundType.WRONG)
                 if (hasMatchedAny) {
                     score = max(0, score - PENALTY)
                     showPenalty()
@@ -181,6 +218,18 @@ class GameFragment : Fragment() {
         cards[index].faceUp = true
         cardViews[index].text = cards[index].emoji
         cardViews[index].setBackgroundResource(R.drawable.bg_card_front)
+    }
+
+    private fun animateMatch(cardView: View) {
+        AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(cardView, "scaleX", 1f, 1.2f, 1f),
+                ObjectAnimator.ofFloat(cardView, "scaleY", 1f, 1.2f, 1f)
+            )
+            duration = 300
+            interpolator = OvershootInterpolator()
+            start()
+        }
     }
 
     private fun flipDown(index: Int) {
@@ -225,6 +274,7 @@ class GameFragment : Fragment() {
             timeRemaining = (timeRemainingMs / 1000).toInt(),
             isWon = true
         )
+        soundManager.play(SoundType.WIN)
         navigateToResult(won = true)
     }
 

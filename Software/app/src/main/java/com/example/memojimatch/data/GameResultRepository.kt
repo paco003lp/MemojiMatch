@@ -10,10 +10,10 @@ class GameResultRepository(context: Context) {
 
     suspend fun getTopTen(): List<GameResult> = dao.getTopTen()
 
-    suspend fun getLastFive(): List<GameResult> = dao.getLastFive()
+    suspend fun getLastFive(userId: Long): List<GameResult> = dao.getLastFive(userId)
 
-    suspend fun getBestScore(): Int = dao.getBestScore()
+    suspend fun getBestScore(userId: Long): Int = dao.getBestScore(userId)
 
-    suspend fun getBestScoreByDifficulty(difficulty: String): Int =
-        dao.getBestScoreByDifficulty(difficulty)
+    suspend fun getBestScoreByDifficulty(userId: Long, difficulty: String): Int =
+        dao.getBestScoreByDifficulty(userId, difficulty)
 }

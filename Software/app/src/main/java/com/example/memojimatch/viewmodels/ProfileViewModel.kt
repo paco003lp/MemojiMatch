@@ -1,4 +1,4 @@
-package com.example.memojimatch.ui.profile
+package com.example.memojimatch.viewmodels
 
 import androidx.lifecycle.*
 import com.example.memojimatch.data.ProfileRepository
@@ -31,11 +31,17 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     fun setUsername(value: String) { _username.value = value }
     fun selectAvatar(emoji: String) { _selectedAvatar.value = emoji }
 
+    private val _profileSaved = MutableLiveData(false)
+    val profileSaved: LiveData<Boolean> = _profileSaved
+
+    fun onNavigated() { _profileSaved.value = false }
+
     fun saveProfile() {
         val name = _username.value?.trim() ?: return
         val emoji = _selectedAvatar.value ?: return
         viewModelScope.launch {
             repository.saveProfile(name, emoji)
+            _profileSaved.value = true
         }
     }
 }

@@ -2,14 +2,12 @@ package com.example.memojimatch.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.memojimatch.data.GameResult
 import com.example.memojimatch.data.GameResultRepository
 import com.example.memojimatch.data.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class LeaderboardViewModel(application: Application) : AndroidViewModel(application) {
 

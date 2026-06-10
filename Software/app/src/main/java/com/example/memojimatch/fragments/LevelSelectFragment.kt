@@ -14,12 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.memojimatch.R
+import com.example.memojimatch.data.Level
 import com.example.memojimatch.viewmodels.LevelSelectViewModel
 import kotlinx.coroutines.launch
 
 class LevelSelectFragment : Fragment() {
 
-    enum class Level { EASY, MEDIUM, HARD }
     private var selectedLevel = Level.EASY
 
     private val viewModel: LevelSelectViewModel by viewModels()
@@ -67,7 +67,6 @@ class LevelSelectFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.load()
                 viewModel.uiState.collect { state ->
                     txtName.text   = state.username
                     txtAvatar.text = state.avatarEmoji
@@ -78,6 +77,11 @@ class LevelSelectFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewLifecycleOwner.lifecycleScope.launch { viewModel.load() }
     }
 
     private fun selectLevel(level: Level) {

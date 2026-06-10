@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.memojimatch.R
+import com.example.memojimatch.databinding.FragmentResultBinding
 
 class ResultFragment : Fragment() {
+
+    private var _binding: FragmentResultBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_result, container, false)
+    ): View {
+        _binding = FragmentResultBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,24 +33,21 @@ class ResultFragment : Fragment() {
         val totalPairs    = args?.getInt("totalPairs", 0) ?: 0
         val levelName     = args?.getString("levelName", "EASY") ?: "EASY"
         val won           = args?.getBoolean("won", false) ?: false
+        val username      = args?.getString("username", "") ?: ""
+        val levelDisplay  = levelName.lowercase().replaceFirstChar { it.uppercase() }
 
-        val username     = args?.getString("username", "") ?: ""
-        val levelDisplay = levelName.lowercase().replaceFirstChar { it.uppercase() }
+        binding.tvWinMsg.text       = if (won) getString(R.string.msg_win) else getString(R.string.msg_time_up)
+        binding.tvFinalScore.text   = score.toString()
+        binding.tvLevelUser.text    = getString(R.string.result_level_user, levelDisplay, username)
+        binding.tvTimeRemaining.text = formatTime(timeRemaining)
+        binding.tvErrorCount.text   = getString(R.string.result_error_count, errorCount)
+        binding.tvPairsCount.text   = getString(R.string.result_pairs_count, matchedPairs, totalPairs)
 
-        view.findViewById<TextView>(R.id.tvWinMsg).text =
-            if (won) getString(R.string.msg_win) else getString(R.string.msg_time_up)
-
-        view.findViewById<TextView>(R.id.tvFinalScore).text    = score.toString()
-        view.findViewById<TextView>(R.id.tvLevelUser).text     = "$levelDisplay - $username"
-        view.findViewById<TextView>(R.id.tvTimeRemaining).text = formatTime(timeRemaining)
-        view.findViewById<TextView>(R.id.tvErrorCount).text    = "-$errorCount"
-        view.findViewById<TextView>(R.id.tvPairsCount).text    = "$matchedPairs/$totalPairs"
-
-        view.findViewById<Button>(R.id.btnNewGame).setOnClickListener {
+        binding.btnNewGame.setOnClickListener {
             val bundle = Bundle().apply { putString("level", levelName) }
             findNavController().navigate(R.id.gameFragment, bundle)
         }
-        view.findViewById<Button>(R.id.btnMenu).setOnClickListener {
+        binding.btnMenu.setOnClickListener {
             findNavController().navigate(R.id.levelSelectFragment)
         }
     }
@@ -54,5 +56,10 @@ class ResultFragment : Fragment() {
         val m = totalSeconds / 60
         val s = totalSeconds % 60
         return "%d:%02d".format(m, s)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

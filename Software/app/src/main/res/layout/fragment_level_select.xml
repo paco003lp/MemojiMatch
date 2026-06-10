@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="14dp"
-        android:text="ODABERI RAZINU"
+        android:text="@string/level_select_header"
         android:textColor="@color/ms_text_secondary"
         android:textSize="12sp"
         android:letterSpacing="0.08" />
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EASY"
+                android:text="@string/level_easy"
                 android:textColor="@color/ms_text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="4×4 · 16 kartica · 60s"
+                android:text="@string/level_easy_desc"
                 android:textColor="@color/ms_text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -133,7 +133,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MEDIUM"
+                android:text="@string/level_medium"
                 android:textColor="@color/ms_text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="4×6 · 24 kartica · 90s"
+                android:text="@string/level_medium_desc"
                 android:textColor="@color/ms_text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -183,7 +183,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HARD"
+                android:text="@string/level_hard"
                 android:textColor="@color/ms_text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="6×6 · 36 kartica · 120s"
+                android:text="@string/level_hard_desc"
                 android:textColor="@color/ms_text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -224,7 +224,7 @@
         android:layout_height="56dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/bg_play_button"
-        android:text="Igraj"
+        android:text="@string/level_btn_play"
         android:textAllCaps="false"
         android:textColor="@color/ms_text_primary"
         android:textSize="16sp"

@@ -1,15 +1,19 @@
-package com.example.memojimatch.ui.profile
+package com.example.memojimatch.fragments
 
 import android.os.Bundle
 import android.view.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.memojimatch.R
+import com.example.memojimatch.adapters.AvatarAdapter
+import com.example.memojimatch.data.AvatarList
 import com.example.memojimatch.data.ProfileRepository
 import com.example.memojimatch.databinding.FragmentProfileBinding
+import com.example.memojimatch.viewmodels.ProfileViewModel
+import com.example.memojimatch.viewmodels.ProfileViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileFragment : Fragment() {
 
@@ -20,7 +24,6 @@ class ProfileFragment : Fragment() {
         ProfileViewModelFactory(ProfileRepository(requireContext()))
     }
 
-    private val avatars = listOf("🐼", "🦊", "🐶", "🐱", "🦁", "🐸", "🐵", "🐰", "🐯", "🦄")
     private lateinit var adapter: AvatarAdapter
 
     override fun onCreateView(
@@ -31,7 +34,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = AvatarAdapter(avatars) { emoji -> viewModel.selectAvatar(emoji) }
+        adapter = AvatarAdapter(AvatarList.avatars) { emoji -> viewModel.selectAvatar(emoji) }
         binding.avatarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 5)
         binding.avatarRecyclerView.adapter = adapter
 
@@ -41,10 +44,14 @@ class ProfileFragment : Fragment() {
 
         binding.continueButton.setOnClickListener {
             viewModel.saveProfile()
-            findNavController().navigate(R.id.action_profile_to_main)
         }
 
         observeViewModel()
+    }
+
+    private fun navigateToGame() {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
+            .selectedItemId = R.id.levelSelectFragment
     }
 
     private fun observeViewModel() {
@@ -61,6 +68,12 @@ class ProfileFragment : Fragment() {
         viewModel.canConfirm.observe(viewLifecycleOwner) { enabled ->
             binding.continueButton.isEnabled = enabled
             binding.continueButton.alpha = if (enabled) 1f else 0.4f
+        }
+        viewModel.profileSaved.observe(viewLifecycleOwner) { saved ->
+            if (saved) {
+                viewModel.onNavigated()
+                navigateToGame()
+            }
         }
     }
 

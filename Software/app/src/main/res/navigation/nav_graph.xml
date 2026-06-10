@@ -8,12 +8,9 @@
     <!-- Onboarding / Profil tab -->
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.memojimatch.ui.profile.ProfileFragment"
+        android:name="com.example.memojimatch.fragments.ProfileFragment"
         android:label="Profil"
         tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profile_to_main"
-            app:destination="@id/levelSelectFragment" />
     </fragment>
 
     <!-- Igra tab (top-level) -->

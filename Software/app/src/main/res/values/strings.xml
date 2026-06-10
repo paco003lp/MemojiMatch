@@ -1,22 +1,36 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MemojiMatch</string>
 
     <string name="title_profile">Profil</string>
-    <string name="hint_username">Ana</string>
-    <string name="select_level">ODABERI RAZINU</string>
-    <string name="level_medium">MEDIUM</string>
-    <string name="level_medium_desc">6x6 • 36 kartica • 90s</string>
-    <string name="level_easy_desc">4x4 • 16 kartica • 60s</string>
-    <string name="level_hard_desc">8x8 • 64 kartice • 120s</string>
-    <string name="btn_save_profile">SPREMI</string>
-
-    <string name="timer">VRIJEME</string>
-    <string name="score">SCORE</string>
     <string name="timer_placeholder">0:42</string>
-    <string name="score_placeholder">0</string>
-    <string name="info_pairs">1/8 parova</string>
-    <string name="info_penalty">-100 kazna</string>
-    <string name="btn_start_game">POKRENI IGRU</string>
+
+    <!-- Profil -->
+    <string name="profile_title">MemojiMatch</string>
+    <string name="profile_hint_username">Unesi ime</string>
+    <string name="profile_btn_continue">Nastavi →</string>
+    <string name="profile_avatar_default">🙂</string>
+
+    <!-- Level select -->
+    <string name="level_select_header">ODABERI RAZINU</string>
+    <string name="level_easy">EASY</string>
+    <string name="level_easy_desc">4×4 · 16 kartica · 60s</string>
+    <string name="level_medium">MEDIUM</string>
+    <string name="level_medium_desc">4×6 · 24 kartica · 90s</string>
+    <string name="level_hard">HARD</string>
+    <string name="level_hard_desc">6×6 · 36 kartica · 120s</string>
+    <string name="level_btn_play">Igraj</string>
+
+    <!-- Igra -->
+    <string name="game_label_time">VRIJEME</string>
+    <string name="game_label_score">SCORE</string>
+    <string name="game_time_zero">0:00</string>
+    <string name="game_pairs">%1$d/%2$d parova</string>
+    <string name="game_penalty">-%1$d kazna</string>
+
+    <!-- Rezultat -->
+    <string name="result_level_user">%1$s - %2$s</string>
+    <string name="result_error_count">-%1$d</string>
+    <string name="result_pairs_count">%1$d/%2$d</string>
 
     <string name="title_leaderboard">Ljestvica</string>
     <string name="label_top_results">TOP 10 REZULTATA</string>
@@ -24,16 +38,10 @@
 
     <string name="msg_win">Pobijedio si!</string>
     <string name="msg_time_up">Vrijeme je isteklo!</string>
-    <string name="label_total_score">UKUPNI BODOVI</string>
-    <string name="points">1240</string>
-    <string name="kazna">-3</string>
-    <string name="parovi">18/18</string>
     <string name="btn_new_game">Nova igra</string>
     <string name="btn_menu">IZBORNIK</string>
 
-    <string name="level_easy">EASY</string>
-    <string name="level_hard">HARD</string>
-    <string name="btn_play">IGRAJ</string>
+
 
     <string name="label_history_title">Povijest igara</string>
     <string name="label_last_5_games">Zadnjih 5 partija</string>
@@ -41,9 +49,7 @@
     <string name="label_errors">greške</string>
     <string name="label_remaining">preostalo</string>
     <string name="label_points">bodova</string>
-    <string name="desc_avatar">User Avatar</string>
-    <string name="desc">Medium - Ana</string>
-
+    <string name="desc_avatar" tools:ignore="UnusedResources">User Avatar</string>
     <!-- Leaderboard -->
     <string name="leaderboard_empty">Još nema rezultata —\nodigraj prvu igru!</string>
     <string name="leaderboard_meta">%1$s · %2$s</string>

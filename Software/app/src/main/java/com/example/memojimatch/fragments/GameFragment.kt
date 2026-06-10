@@ -1,14 +1,22 @@
 package com.example.memojimatch.fragments
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.content.Context
+import android.os.Build
+import com.example.memojimatch.data.SoundManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ProgressBar
@@ -16,24 +24,35 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.memojimatch.MemojiApp
 import com.example.memojimatch.R
-import com.example.memojimatch.data.Level
-import com.example.memojimatch.viewmodels.CardState
+import com.example.memojimatch.data.SettingsManager
+import com.example.memojimatch.data.SoundType
 import com.example.memojimatch.viewmodels.GameViewModel
 import kotlin.math.max
 import kotlin.math.min
 
+
 class GameFragment : Fragment() {
+
+    private lateinit var settings: SettingsManager
+
+    private lateinit var soundManager: SoundManager
+
 
     private val viewModel: GameViewModel by viewModels()
 
-    private val PENALTY = 10
-    private val MATCH_POINTS = 100
+    enum class Level { EASY, MEDIUM, HARD }
+
+    private data class Card(val emoji: String, var matched: Boolean = false, var faceUp: Boolean = false)
 
     private val EMOJIS = listOf(
         "🐶","🐱","🦊","🐼","🦁","🐸","🐵","🦄","🐷","🐔","🐧","🐢",
         "🦋","🐝","🍎","🍕","🍔","🎈","⚽","🚀","🎸","🎮","🍩","🌈"
     )
+
+    private val PENALTY = 10   // koliko se gubi po promašaju
+    private val MATCH_POINTS = 100
 
     private lateinit var level: Level
     private var cols = 4
@@ -41,7 +60,18 @@ class GameFragment : Fragment() {
     private var timeMs = 60_000L
     private var totalPairs = 8
 
+    private lateinit var cards: List<Card>
     private lateinit var cardViews: List<TextView>
+
+    private var firstIndex: Int? = null
+    private var isBusy = false
+    private var timerStarted = false
+    private var hasMatchedAny = false
+    private var score = 0
+    private var matchedPairs = 0
+    private var errorCount = 0
+    private var timeRemainingMs = 0L
+
     private var timer: CountDownTimer? = null
     private val handler = Handler(Looper.getMainLooper())
 
@@ -59,42 +89,47 @@ class GameFragment : Fragment() {
     ): View = inflater.inflate(R.layout.fragment_game, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        settings = (requireActivity().application as MemojiApp).settings
         super.onViewCreated(view, savedInstanceState)
 
-        txtTime      = view.findViewById(R.id.txtTime)
-        txtScore     = view.findViewById(R.id.txtScore)
-        txtMode      = view.findViewById(R.id.txtMode)
-        txtPairs     = view.findViewById(R.id.txtPairs)
-        txtPenalty   = view.findViewById(R.id.txtPenalty)
+        soundManager = SoundManager(requireContext())
+
+        txtTime = view.findViewById(R.id.txtTime)
+        txtScore = view.findViewById(R.id.txtScore)
+        txtMode = view.findViewById(R.id.txtMode)
+        txtPairs = view.findViewById(R.id.txtPairs)
+        txtPenalty = view.findViewById(R.id.txtPenalty)
         progressTime = view.findViewById(R.id.progressTime)
         gridContainer = view.findViewById(R.id.gridContainer)
-        gridGame     = view.findViewById(R.id.gridGame)
+        gridGame = view.findViewById(R.id.gridGame)
 
         level = try {
             Level.valueOf(arguments?.getString("level") ?: "EASY")
         } catch (e: Exception) { Level.EASY }
 
         when (level) {
-            Level.EASY   -> { cols = 4; rows = 4; timeMs = 60_000 }
+            Level.EASY -> { cols = 4; rows = 4; timeMs = 60_000 }
             Level.MEDIUM -> { cols = 4; rows = 6; timeMs = 90_000 }
-            Level.HARD   -> { cols = 6; rows = 6; timeMs = 120_000 }
+            Level.HARD -> { cols = 6; rows = 6; timeMs = 120_000 }
         }
+        timeRemainingMs = timeMs
         totalPairs = (rows * cols) / 2
 
         txtMode.text = level.name
+        txtTime.text = formatTime((timeMs / 1000).toInt())
+        progressTime.progress = 100
+        updateHud()
 
-        // Inicijaliziraj igru samo ako nije već pokrenuta (preživljava rotaciju)
-        if (!viewModel.isInitialized) {
-            val chosen = EMOJIS.shuffled().take(totalPairs)
-            val deck = (chosen + chosen).shuffled()
-            viewModel.initGame(deck.map { CardState(it) }, timeMs)
-        }
+        // izmiješaj kartice
+        val chosen = EMOJIS.shuffled().take(totalPairs)
+        val deck = (chosen + chosen).shuffled()
+        cards = deck.map { Card(it) }
 
+        // izgradi grid kad znamo dimenzije containera
         gridContainer.post { buildGrid() }
     }
 
     private fun buildGrid() {
-        val state = viewModel.gameState.value
         val m = dp(4)
         val cellByW = gridContainer.width / cols - 2 * m
         val cellByH = gridContainer.height / rows - 2 * m
@@ -103,54 +138,40 @@ class GameFragment : Fragment() {
         gridGame.removeAllViews()
         gridGame.columnCount = cols
 
-        cardViews = state.cards.mapIndexed { index, card ->
+        cardViews = cards.mapIndexed { index, _ ->
             val tv = TextView(requireContext())
             val lp = GridLayout.LayoutParams()
-            lp.width = cell; lp.height = cell; lp.setMargins(m, m, m, m)
+            lp.width = cell
+            lp.height = cell
+            lp.setMargins(m, m, m, m)
             tv.layoutParams = lp
             tv.gravity = Gravity.CENTER
+            tv.setBackgroundResource(R.drawable.bg_card_back)
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, cell * 0.45f)
             tv.setOnClickListener { onCardClicked(index) }
-            // Vrati vizualni prikaz prema sačuvanom stanju
-            when {
-                card.matched  -> { tv.text = card.emoji; tv.setBackgroundResource(R.drawable.bg_card_matched) }
-                card.faceUp   -> { tv.text = card.emoji; tv.setBackgroundResource(R.drawable.bg_card_front) }
-                else          -> { tv.text = ""; tv.setBackgroundResource(R.drawable.bg_card_back) }
-            }
             gridGame.addView(tv)
             tv
         }
-
-        // Obnovi HUD
-        val s = viewModel.gameState.value
-        txtScore.text = s.score.toString()
-        txtPairs.text = getString(R.string.game_pairs, s.matchedPairs, totalPairs)
-        txtTime.text  = formatTime((s.timeRemainingMs / 1000).toInt())
-        progressTime.progress = ((s.timeRemainingMs.toFloat() / timeMs) * 100).toInt()
-
-        // Nastavi timer ako je bio pokrenut
-        if (s.timerStarted && !s.finished) startTimer(s.timeRemainingMs)
     }
 
     private fun onCardClicked(index: Int) {
-        val s = viewModel.gameState.value
-        if (s.isBusy || s.finished) return
-        val card = s.cards[index]
+        if (isBusy) return
+        val card = cards[index]
         if (card.matched || card.faceUp) return
 
-        if (!s.timerStarted) startTimer(s.timeRemainingMs)
+        if (!timerStarted) startTimer()
 
         flipUp(index)
+        soundManager.play(SoundType.FLIP)
 
-        val first = s.firstIndex
+        val first = firstIndex
         if (first == null) {
-            viewModel.updateState { copy(firstIndex = index) }
+            firstIndex = index
         } else {
-            viewModel.updateState { copy(isBusy = true) }
-            val updatedCards = viewModel.gameState.value.cards.toMutableList()
-            if (updatedCards[first].emoji == updatedCards[index].emoji) {
-                updatedCards[first] = updatedCards[first].copy(matched = true)
-                updatedCards[index] = updatedCards[index].copy(matched = true)
+            isBusy = true
+            if (cards[first].emoji == card.emoji) {
+                cards[first].matched = true
+                cards[index].matched = true
                 cardViews[first].setBackgroundResource(R.drawable.bg_card_matched)
                 cardViews[index].setBackgroundResource(R.drawable.bg_card_matched)
                 matchedPairs++
@@ -167,53 +188,68 @@ class GameFragment : Fragment() {
                 if (matchedPairs == totalPairs) {
                     handler.postDelayed({ onWin() }, 350)  // čeka da animacija završi
                 }
-                updateHud()
-                if (newMatched == totalPairs) onWin()
             } else {
-                val newErrors = s.errorCount + 1
-                val newScore  = if (s.hasMatchedAny) max(0, s.score - PENALTY) else s.score
-                viewModel.updateState {
-                    copy(errorCount = newErrors, score = newScore, firstIndex = null)
+                errorCount++
+                if (settings.isVibrationEnabled) {
+                    val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(200)
+                    }
                 }
-                if (s.hasMatchedAny) { showPenalty(); updateHud() }
+                soundManager.play(SoundType.WRONG)
+                if (hasMatchedAny) {
+                    score = max(0, score - PENALTY)
+                    showPenalty()
+                    updateHud()
+                }
                 handler.postDelayed({
                     flipDown(first)
                     flipDown(index)
-                    viewModel.updateState { copy(isBusy = false) }
+                    firstIndex = null
+                    isBusy = false
                 }, 700)
             }
         }
     }
 
     private fun flipUp(index: Int) {
-        val cards = viewModel.gameState.value.cards.toMutableList()
-        cards[index] = cards[index].copy(faceUp = true)
-        viewModel.updateState { copy(cards = cards) }
+        cards[index].faceUp = true
         cardViews[index].text = cards[index].emoji
         cardViews[index].setBackgroundResource(R.drawable.bg_card_front)
     }
 
+    private fun animateMatch(cardView: View) {
+        AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(cardView, "scaleX", 1f, 1.2f, 1f),
+                ObjectAnimator.ofFloat(cardView, "scaleY", 1f, 1.2f, 1f)
+            )
+            duration = 300
+            interpolator = OvershootInterpolator()
+            start()
+        }
+    }
+
     private fun flipDown(index: Int) {
-        val cards = viewModel.gameState.value.cards.toMutableList()
         if (cards[index].matched) return
-        cards[index] = cards[index].copy(faceUp = false)
-        viewModel.updateState { copy(cards = cards) }
+        cards[index].faceUp = false
         cardViews[index].text = ""
         cardViews[index].setBackgroundResource(R.drawable.bg_card_back)
     }
 
-    private fun startTimer(fromMs: Long) {
-        timer?.cancel()
-        viewModel.updateState { copy(timerStarted = true) }
-        timer = object : CountDownTimer(fromMs, 100) {
+    private fun startTimer() {
+        timerStarted = true
+        timer = object : CountDownTimer(timeMs, 100) {
             override fun onTick(ms: Long) {
-                viewModel.updateState { copy(timeRemainingMs = ms) }
+                timeRemainingMs = ms
                 txtTime.text = formatTime((ms / 1000).toInt())
                 progressTime.progress = ((ms.toFloat() / timeMs) * 100).toInt()
             }
             override fun onFinish() {
-                viewModel.updateState { copy(timeRemainingMs = 0) }
-                txtTime.text = getString(R.string.game_time_zero)
+                txtTime.text = "0:00"
                 progressTime.progress = 0
                 onTimeUp()
             }
@@ -221,40 +257,46 @@ class GameFragment : Fragment() {
     }
 
     private fun updateHud() {
-        val s = viewModel.gameState.value
-        txtScore.text = s.score.toString()
-        txtPairs.text = getString(R.string.game_pairs, s.matchedPairs, totalPairs)
+        txtScore.text = score.toString()
+        txtPairs.text = "$matchedPairs/$totalPairs parova"
     }
 
     private fun showPenalty() {
-        txtPenalty.text = getString(R.string.game_penalty, PENALTY)
+        txtPenalty.text = "-$PENALTY kazna"
         txtPenalty.visibility = View.VISIBLE
         handler.postDelayed({ txtPenalty.visibility = View.INVISIBLE }, 800)
     }
 
     private fun onWin() {
         timer?.cancel()
-        val s = viewModel.gameState.value
-        viewModel.updateState { copy(finished = true) }
-        viewModel.saveResult(s.score, level.name, (s.timeRemainingMs / 1000).toInt(), true)
+        viewModel.saveResult(
+            score = score,
+            difficulty = level.name,
+            timeRemaining = (timeRemainingMs / 1000).toInt(),
+            isWon = true
+        )
+        soundManager.play(SoundType.WIN)
         navigateToResult(won = true)
     }
 
     private fun onTimeUp() {
-        val s = viewModel.gameState.value
-        viewModel.updateState { copy(finished = true, isBusy = true) }
-        viewModel.saveResult(s.score, level.name, 0, false)
+        isBusy = true
+        viewModel.saveResult(
+            score = score,
+            difficulty = level.name,
+            timeRemaining = (timeRemainingMs / 1000).toInt(),
+            isWon = false
+        )
         navigateToResult(won = false)
     }
 
     private fun navigateToResult(won: Boolean) {
         if (!isAdded) return
-        val s = viewModel.gameState.value
         val bundle = Bundle().apply {
-            putInt("score", s.score)
-            putInt("timeRemainingSeconds", (s.timeRemainingMs / 1000).toInt())
-            putInt("errorCount", s.errorCount)
-            putInt("matchedPairs", s.matchedPairs)
+            putInt("score", score)
+            putInt("timeRemainingSeconds", (timeRemainingMs / 1000).toInt())
+            putInt("errorCount", errorCount)
+            putInt("matchedPairs", matchedPairs)
             putInt("totalPairs", totalPairs)
             putString("levelName", level.name)
             putBoolean("won", won)
@@ -262,6 +304,7 @@ class GameFragment : Fragment() {
         }
         findNavController().navigate(R.id.action_game_to_result, bundle)
     }
+
 
     private fun formatTime(totalSeconds: Int): String {
         val m = totalSeconds / 60

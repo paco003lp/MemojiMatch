@@ -1,5 +1,7 @@
 package com.example.memojimatch.fragments
 
+import android.content.Context
+import com.example.memojimatch.data.SoundManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -17,11 +19,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.memojimatch.R
+import com.example.memojimatch.data.SoundType
 import com.example.memojimatch.viewmodels.GameViewModel
 import kotlin.math.max
 import kotlin.math.min
 
+
 class GameFragment : Fragment() {
+    private lateinit var soundManager: SoundManager
+    private var soundEnabled = true
 
     private val viewModel: GameViewModel by viewModels()
 
@@ -73,6 +79,10 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
+        soundEnabled = prefs.getBoolean("sound_enabled", true)
+        soundManager = SoundManager(requireContext())
 
         txtTime = view.findViewById(R.id.txtTime)
         txtScore = view.findViewById(R.id.txtScore)
@@ -142,6 +152,7 @@ class GameFragment : Fragment() {
         if (!timerStarted) startTimer()
 
         flipUp(index)
+        soundManager.play(SoundType.FLIP, soundEnabled)
 
         val first = firstIndex
         if (first == null) {
@@ -159,9 +170,11 @@ class GameFragment : Fragment() {
                 updateHud()
                 firstIndex = null
                 isBusy = false
+                soundManager.play(SoundType.MATCH, soundEnabled)
                 if (matchedPairs == totalPairs) onWin()
             } else {
                 errorCount++
+                soundManager.play(SoundType.WRONG, soundEnabled)
                 if (hasMatchedAny) {
                     score = max(0, score - PENALTY)
                     showPenalty()
@@ -225,6 +238,7 @@ class GameFragment : Fragment() {
             timeRemaining = (timeRemainingMs / 1000).toInt(),
             isWon = true
         )
+        soundManager.play(SoundType.WIN, soundEnabled)
         navigateToResult(won = true)
     }
 

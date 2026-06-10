@@ -72,4 +72,10 @@
         android:label="Povijest"
         tools:layout="@layout/fragment_history" />
 
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.memojimatch.fragments.SettingsFragment"
+        android:label="Postavke"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>

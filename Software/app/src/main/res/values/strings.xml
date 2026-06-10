@@ -61,4 +61,6 @@
     <string name="history_empty">Još nema odigranih partija!</string>
     <string name="history_badge_win">W</string>
     <string name="history_badge_loss">L</string>
+    <string name="postavke">Postavke</string>
+    <string name="Postavke">Postavke</string>
 </resources>

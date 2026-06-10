@@ -1,11 +1,14 @@
 package com.example.memojimatch.fragments
 
 import android.content.Context
+import android.os.Build
 import com.example.memojimatch.data.SoundManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -18,7 +21,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.memojimatch.MemojiApp
 import com.example.memojimatch.R
+import com.example.memojimatch.data.SettingsManager
 import com.example.memojimatch.data.SoundType
 import com.example.memojimatch.viewmodels.GameViewModel
 import kotlin.math.max
@@ -26,8 +31,11 @@ import kotlin.math.min
 
 
 class GameFragment : Fragment() {
+
+    private lateinit var settings: SettingsManager
+
     private lateinit var soundManager: SoundManager
-    private var soundEnabled = true
+
 
     private val viewModel: GameViewModel by viewModels()
 
@@ -78,10 +86,9 @@ class GameFragment : Fragment() {
     ): View = inflater.inflate(R.layout.fragment_game, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        settings = (requireActivity().application as MemojiApp).settings
         super.onViewCreated(view, savedInstanceState)
 
-        val prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
-        soundEnabled = prefs.getBoolean("sound_enabled", true)
         soundManager = SoundManager(requireContext())
 
         txtTime = view.findViewById(R.id.txtTime)
@@ -152,7 +159,7 @@ class GameFragment : Fragment() {
         if (!timerStarted) startTimer()
 
         flipUp(index)
-        soundManager.play(SoundType.FLIP, soundEnabled)
+        soundManager.play(SoundType.FLIP)
 
         val first = firstIndex
         if (first == null) {
@@ -170,11 +177,20 @@ class GameFragment : Fragment() {
                 updateHud()
                 firstIndex = null
                 isBusy = false
-                soundManager.play(SoundType.MATCH, soundEnabled)
+                soundManager.play(SoundType.MATCH)
                 if (matchedPairs == totalPairs) onWin()
             } else {
                 errorCount++
-                soundManager.play(SoundType.WRONG, soundEnabled)
+                if (settings.isVibrationEnabled) {
+                    val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(200)
+                    }
+                }
+                soundManager.play(SoundType.WRONG)
                 if (hasMatchedAny) {
                     score = max(0, score - PENALTY)
                     showPenalty()
@@ -238,7 +254,7 @@ class GameFragment : Fragment() {
             timeRemaining = (timeRemainingMs / 1000).toInt(),
             isWon = true
         )
-        soundManager.play(SoundType.WIN, soundEnabled)
+        soundManager.play(SoundType.WIN)
         navigateToResult(won = true)
     }
 

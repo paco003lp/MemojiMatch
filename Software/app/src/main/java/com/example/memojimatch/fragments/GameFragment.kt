@@ -183,6 +183,7 @@ class GameFragment : Fragment() {
 
                 animateMatch(cardViews[first])
                 animateMatch(cardViews[index])
+                soundManager.play(SoundType.MATCH)
 
                 if (matchedPairs == totalPairs) {
                     handler.postDelayed({ onWin() }, 350)  // čeka da animacija završi

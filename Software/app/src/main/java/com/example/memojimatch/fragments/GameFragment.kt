@@ -1,5 +1,7 @@
 package com.example.memojimatch.fragments
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
 import com.example.memojimatch.data.SoundManager
@@ -14,6 +16,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ProgressBar
@@ -177,8 +180,13 @@ class GameFragment : Fragment() {
                 updateHud()
                 firstIndex = null
                 isBusy = false
-                soundManager.play(SoundType.MATCH)
-                if (matchedPairs == totalPairs) onWin()
+
+                animateMatch(cardViews[first])
+                animateMatch(cardViews[index])
+
+                if (matchedPairs == totalPairs) {
+                    handler.postDelayed({ onWin() }, 350)  // čeka da animacija završi
+                }
             } else {
                 errorCount++
                 if (settings.isVibrationEnabled) {
@@ -210,6 +218,18 @@ class GameFragment : Fragment() {
         cards[index].faceUp = true
         cardViews[index].text = cards[index].emoji
         cardViews[index].setBackgroundResource(R.drawable.bg_card_front)
+    }
+
+    private fun animateMatch(cardView: View) {
+        AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(cardView, "scaleX", 1f, 1.2f, 1f),
+                ObjectAnimator.ofFloat(cardView, "scaleY", 1f, 1.2f, 1f)
+            )
+            duration = 300
+            interpolator = OvershootInterpolator()
+            start()
+        }
     }
 
     private fun flipDown(index: Int) {
